@@ -1,2 +1,2 @@
 slackclient==1.0.0
-boto=2.49.0
+boto==2.49.0

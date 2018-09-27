@@ -1,7 +1,10 @@
 import os, time, json
 from slackclient import SlackClient
+from boto.s3.connection import S3Connection
 
-BOT_TOKEN = process.env.API_TOKEN
+BOT_TOKEN = S3Connection(os.environ['API_TOKEN'])
+
+# BOT_TOKEN = process.env.API_TOKEN
 
 slack_client = SlackClient(BOT_TOKEN)
 # starterbot's user ID in Slack: value is assigned after the bot starts up

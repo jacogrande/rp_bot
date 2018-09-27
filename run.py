@@ -2,7 +2,7 @@ import os, time, json
 from slackclient import SlackClient
 from boto.s3.connection import S3Connection
 
-BOT_TOKEN = S3Connection(os.environ['API_TOKEN'])
+BOT_TOKEN = os.environ["API_TOKEN"]
 
 # BOT_TOKEN = process.env.API_TOKEN
 

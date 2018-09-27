@@ -1,7 +1,7 @@
 import os, time, json
 from slackclient import SlackClient
 
-BOT_TOKEN = "xoxb-443793188948-443456496353-u6tkBOD1WTsIgzIZItzlegtl"
+BOT_TOKEN = process.env.API_TOKEN
 
 slack_client = SlackClient(BOT_TOKEN)
 # starterbot's user ID in Slack: value is assigned after the bot starts up

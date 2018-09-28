@@ -77,9 +77,23 @@ def handle_command(command, channel):
                 sCast = [song["G"],song["G2"], song["B"], song["D"], song["K"], song["V"],song["V2"]]
                 response = response +  "*" + str(inc) + ". " + sTitle + "*\n\tG: " + sCast[0] + " G2: " + sCast[1]  + " B: " + sCast[2] + " D: " + sCast[3] + " K: " + sCast[4] + " V: " + sCast[5] + " V2: " + sCast[6]+ "\n\tStatus: " + song["Status"] + "\n";
 
+    elif command[0] == "rehearsal" && command[1] == "list":
+        refreshData()
+        sList = []
+        for song in song_data["songs"]:
+            if song["Status"] == "Needs Work":
+                sList.append(song)
+
+        inc = 0
+        for song in sList:
+            response = response + "*" + str(inc) + ". " + sTitle + "*\n"
+
+
     elif command[0] == 'help':
         response = "Command List: \n\t- *songs* : displays song list"
         response += "\n\t- *songs* player_name : displays song list for player_name"
+        response += "\n\t- *rehearsal list* : displays all songs that need work"
+
 
     else:
         response = "Sorry, I don't understand (type *help* for help with commands)"

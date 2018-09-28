@@ -64,7 +64,7 @@ def handle_command(command, channel):
                 inc+=1
                 sTitle = song["title"];
                 sCast = [song["G"],song["G2"], song["B"], song["D"], song["K"], song["V"],song["V2"]]
-                response = response +  "*" + str(inc) + ". " + sTitle + "*\n\tG: " + sCast[0] + " G2: " + sCast[1]  + " B: " + sCast[2] + " D: " + sCast[3] + " K: " + sCast[4] + " V: " + sCast[5] + " V2: " + sCast[6]+ "\n"
+                response = response +  "*" + str(inc) + ". " + sTitle + "*\n\tG: " + sCast[0] + " G2: " + sCast[1]  + " B: " + sCast[2] + " D: " + sCast[3] + " K: " + sCast[4] + " V: " + sCast[5] + " V2: " + sCast[6]+ "\n Status: " + songs["status"];
             if found == False:
                 response = sFilter + " has 0 songs"
 
@@ -75,7 +75,7 @@ def handle_command(command, channel):
                 inc+=1
                 sTitle = song["title"];
                 sCast = [song["G"],song["G2"], song["B"], song["D"], song["K"], song["V"],song["V2"]]
-                response = response +  "*" + str(inc) + ". " + sTitle + "*\n\tG: " + sCast[0] + " G2: " + sCast[1]  + " B: " + sCast[2] + " D: " + sCast[3] + " K: " + sCast[4] + " V: " + sCast[5] + " V2: " + sCast[6]+ "\n"
+                response = response +  "*" + str(inc) + ". " + sTitle + "*\n\tG: " + sCast[0] + " G2: " + sCast[1]  + " B: " + sCast[2] + " D: " + sCast[3] + " K: " + sCast[4] + " V: " + sCast[5] + " V2: " + sCast[6]+ "\n Status: " + songs["status"];
 
     elif command[0] == 'help':
         response = "Command List: \n\t- *songs* : displays song list"

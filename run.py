@@ -86,7 +86,8 @@ def handle_command(command, channel):
 
         inc = 0
         for song in sList:
-            response = response + "*" + str(inc) + ". " + sTitle + "*\n"
+            inc+=1
+            response = response + "*" + str(inc) + ". " + song["title"] + "*\n"
 
 
     elif command[0] == 'help':

@@ -77,7 +77,7 @@ def handle_command(command, channel):
                 sCast = [song["G"],song["G2"], song["B"], song["D"], song["K"], song["V"],song["V2"]]
                 response = response +  "*" + str(inc) + ". " + sTitle + "*\n\tG: " + sCast[0] + " G2: " + sCast[1]  + " B: " + sCast[2] + " D: " + sCast[3] + " K: " + sCast[4] + " V: " + sCast[5] + " V2: " + sCast[6]+ "\n\tStatus: " + song["Status"] + "\n";
 
-    elif command[0] == "rehearsal" && command[1] == "list":
+    elif command[0] == "rehearsal" and command[1] == "list":
         refreshData()
         sList = []
         for song in song_data["songs"]:

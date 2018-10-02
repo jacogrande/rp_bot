@@ -1,11 +1,8 @@
-import os, time, json
+import os, time, json, random
 from slackclient import SlackClient
 from boto.s3.connection import S3Connection
 
-intentional error
 BOT_TOKEN = os.environ["API_TOKEN"]
-
-# BOT_TOKEN = process.env.API_TOKEN
 
 slack_client = SlackClient(BOT_TOKEN)
 # starterbot's user ID in Slack: value is assigned after the bot starts up
@@ -16,19 +13,27 @@ BOT_ID = "UD1DEELAD"
 AT_BOT = "<@" + BOT_ID + "	>"
 FIREHOSE="C5AEQC2JD"
 CHECK="check"
+MONTHS = [False, "January","February","March","April","May","June","July","August","September","October","November","December"]
 
 with open("songs.json", "r") as read_file:
     song_data = json.load(read_file)
+
+with open("dates.json", "r") as read_file:
+    date_data = json.load(read_file)
 
 def refreshData():
     with open("songs.json", "r") as read_file:
         song_data = json.load(read_file)
 
+def refreshDates():
+    with open("dates.json", "r") as read_file:
+        date_data = json.load(read_file)
+
 def handle_command(command, channel):
     response = ""
     command = command.lower()
     command = command.split(" ")
-
+    attachment = False
 
     if command[0] == "songs":
         refreshData()
@@ -90,17 +95,54 @@ def handle_command(command, channel):
             inc+=1
             response = response + "*" + str(inc) + ". " + song["title"] + "*\n"
 
+    elif command[0] == "calendar":
+        refreshDates()
+        dList = []
+        dName = ""
+        attachment = []
+        color = False
+        for date in date_data["dates"]:
+            dName = date["date"].split("/")
+            dName = MONTHS[int(dName[0])] + " " + dName[1]
+            color = "#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+            attachment.append({
+                "fallback":dName,
+                "title":dName,
+                "color":color,
+                "fields": [
+                    {
+                        "title": "Location",
+                        "value": date["location"],
+                        "short": True
+                    },
+                    {
+                        "title": "Time",
+                        "value": date["time"],
+                        "short": True
+                    }
+                ]
+            })
+        attachment = json.dumps(attachment)
+        # attachment = False
+
+    # elif command[0] == "set":
+    #     if command[1] == "date":
+    #
 
     elif command[0] == 'help':
         response = "Command List: \n\t- *songs* : displays song list"
         response += "\n\t- *songs* player_name : displays song list for player_name"
         response += "\n\t- *rehearsal list* : displays all songs that need work"
+        response += "\n\t- *calendar* : displays upcoming show information"
 
 
     else:
         response = "Sorry, I don't understand (type *help* for help with commands)"
 
-    slack_client.api_call("chat.postMessage", channel=channel, text=response, as_user=True)
+    if attachment == False:
+        slack_client.api_call("chat.postMessage", channel=channel, text=response, as_user=True)
+    else:
+        slack_client.api_call("chat.postMessage", channel=channel, text=response, as_user=True, attachments=attachment)
 
 def parse_slack_output(slack_rtm_output):
     output_list = slack_rtm_output

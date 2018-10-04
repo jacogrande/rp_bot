@@ -2,7 +2,6 @@ import os, time, json, random
 from slackclient import SlackClient
 from boto.s3.connection import S3Connection
 
-intentional error
 BOT_TOKEN = os.environ["API_TOKEN"]
 
 slack_client = SlackClient(BOT_TOKEN)
